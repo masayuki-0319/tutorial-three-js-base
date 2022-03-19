@@ -17,7 +17,7 @@ let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHei
 //
 // Define Renderer
 //
-let renderer = new THREE.WebGLRenderer();
+let renderer = new THREE.WebGLRenderer({ alpha: true });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 
