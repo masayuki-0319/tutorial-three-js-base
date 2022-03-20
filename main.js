@@ -11,6 +11,18 @@ let scene, camera, renderer, pointLight, controls;
 //
 //
 // ###########################
+// Func: Organize resizing browser for geometry layout
+// ###########################
+//
+//
+const onWindowResize = () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+};
+//
+//
+// ###########################
 // Func: Rendering
 // ###########################
 //
@@ -95,7 +107,9 @@ const init = () => {
   //
   // Add mouse operation
   controls = new OrbitControls(camera, renderer.domElement);
-
+  //
+  // Rendering
+  window.addEventListener('resize', onWindowResize);
   animate();
 };
 //
