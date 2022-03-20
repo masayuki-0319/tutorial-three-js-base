@@ -1,7 +1,8 @@
 import * as THREE from './build/three.module.js';
+import { OrbitControls } from './jsm/controls/OrbitControls.js';
 //
 // Global variables
-let scene, camera, renderer, pointLight;
+let scene, camera, renderer, pointLight, controls;
 //
 //
 // ###########################
@@ -23,6 +24,9 @@ renderer = new THREE.WebGLRenderer({ alpha: true });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 //
+// Organize device pixel
+renderer.setPixelRatio(window.devicePixelRatio);
+//
 // Rendering Three.js
 document.body.appendChild(renderer.domElement);
 renderer.render(scene, camera);
@@ -34,11 +38,15 @@ renderer.render(scene, camera);
 //
 //
 //
+//
+// Define texture to Geometry
+let texture = new THREE.TextureLoader().load('./textures/earth.jpg');
+//
 // Define Geometry
 let ballGeometry = new THREE.SphereGeometry(100, 64, 32);
 //
 // Define Material
-let ballMaterial = new THREE.MeshPhysicalMaterial({});
+let ballMaterial = new THREE.MeshPhysicalMaterial({ map: texture });
 //
 // Define Mesh
 let ballMesh = new THREE.Mesh(ballGeometry, ballMaterial);
@@ -57,6 +65,14 @@ scene.add(pointLight);
 // View point light helper
 let pointLightHelper = new THREE.PointLightHelper(pointLight, 30);
 scene.add(pointLightHelper);
+//
+// Add mouse operation
+controls = new OrbitControls(camera, renderer.domElement);
+//
+//
+// ###########################
+// Last. Rendering
+// ###########################
 //
 // Circling point light helper
 const animate = () => {
